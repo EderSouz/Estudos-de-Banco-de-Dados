@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explorador público e educativo da estrutura do banco de dados bd_prototipo.">
+  <title>BD Protótipo | Explorador do Banco</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Página inicial">
+      <span class="brand-mark">DB</span>
+      <span><strong>BD Protótipo</strong><small>Explorador de estrutura SQL</small></span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <a href="#tabelas">Tabelas</a>
+      <a href="#relacionamentos">Relacionamentos</a>
+      <a href="#conceitos">Guia de estudo</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">DOCUMENTAÇÃO INTERATIVA</span>
+        <h1>Entenda seu banco de dados <span>sem complicação.</span></h1>
+        <p>Explore tabelas, campos, tipos de dados e regras do <code>bd_prototipo</code> em um só lugar.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#tabelas">Explorar tabelas <span aria-hidden="true">↗</span></a>
+          <button class="button secondary" id="downloadCsv" type="button">Exportar campos CSV</button>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="Resumo do banco">
+        <div class="database-icon">▤</div>
+        <p class="muted">BANCO DOCUMENTADO</p>
+        <h2>bd_prototipo</h2>
+        <div class="hero-stats">
+          <div><strong id="tableCount">10</strong><span>Tabelas</span></div>
+          <div><strong id="fieldCount">—</strong><span>Campos</span></div>
+          <div><strong>MySQL</strong><span>SGBD</span></div>
+        </div>
+        <p class="note">Conteúdo baseado no arquivo SQL fornecido. Não é uma conexão em tempo real com o servidor.</p>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Resumo da estrutura">
+      <article><span class="metric-icon">▦</span><div><strong id="metricTables">10</strong><span>Tabelas documentadas</span></div></article>
+      <article><span class="metric-icon">⌘</span><div><strong id="metricFields">—</strong><span>Campos catalogados</span></div></article>
+      <article><span class="metric-icon">🔗</span><div><strong id="metricRelations">—</strong><span>Chaves estrangeiras</span></div></article>
+      <article><span class="metric-icon">⌕</span><div><strong>Busca</strong><span>Por tabela ou campo</span></div></article>
+    </section>
+
+    <section class="section" id="tabelas">
+      <div class="section-heading">
+        <div><span class="eyebrow">CATÁLOGO</span><h2>Tabelas e campos</h2><p>Selecione uma tabela para consultar sua estrutura completa.</p></div>
+      </div>
+      <div class="toolbar">
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Buscar tabela, campo ou tipo..." autocomplete="off"><kbd>Ctrl K</kbd></label>
+        <label class="filter-label" for="categoryFilter">Grupo
+          <select id="categoryFilter">
+            <option value="all">Todos os grupos</option>
+            <option value="biblioteca">Biblioteca</option>
+            <option value="vendas">Vendas</option>
+          </select>
+        </label>
+      </div>
+      <div class="catalog-layout">
+        <aside class="table-list" id="tableList" aria-label="Lista de tabelas"></aside>
+        <section class="detail-panel" id="tableDetail" aria-live="polite">
+          <div class="empty-state"><div class="database-icon">▤</div><h3>Escolha uma tabela</h3><p>Os campos, tipos e características serão exibidos aqui.</p></div>
+        </section>
+      </div>
+      <p class="small-print">Dica: use a busca para encontrar, por exemplo, <code>BIGINT</code>, <code>NOT NULL</code> ou <code>id_aluno</code>.</p>
+    </section>
+
+    <section class="section relationship-section" id="relacionamentos">
+      <div class="section-heading"><div><span class="eyebrow">MODELO LÓGICO</span><h2>Relacionamentos definidos no SQL</h2><p>Estas conexões são as chaves estrangeiras encontradas no arquivo fornecido.</p></div></div>
+      <div id="relationList" class="relations-grid"></div>
+      <div class="callout"><strong>Importante:</strong> as tabelas <code>vendas</code> e <code>itens_venda</code> têm índices com nomes sugestivos de relacionamento, mas o arquivo não declara chaves estrangeiras para elas.</div>
+    </section>
+
+    <section class="section" id="conceitos">
+      <div class="section-heading"><div><span class="eyebrow">REVISÃO RÁPIDA</span><h2>Guia de estudo</h2><p>Conceitos essenciais para entender a estrutura.</p></div></div>
+      <div class="concept-grid">
+        <article class="concept-card"><span class="concept-symbol">PK</span><h3>Chave primária</h3><p>Identifica cada registro de maneira única dentro de uma tabela.</p><code>PRIMARY KEY (id)</code></article>
+        <article class="concept-card"><span class="concept-symbol">FK</span><h3>Chave estrangeira</h3><p>Relaciona um registro a outro registro de uma tabela relacionada.</p><code>FOREIGN KEY (id_aluno)</code></article>
+        <article class="concept-card"><span class="concept-symbol">AI</span><h3>Auto incremento</h3><p>Gera automaticamente o próximo número de identificação.</p><code>AUTO_INCREMENT</code></article>
+        <article class="concept-card"><span class="concept-symbol">NN</span><h3>NOT NULL</h3><p>Exige que o campo receba um valor, sem permitir NULL.</p><code>NOT NULL</code></article>
+        <article class="concept-card"><span class="concept-symbol">UQ</span><h3>UNIQUE</h3><p>Impede valores repetidos na coluna ou combinação de colunas indexada.</p><code>UNIQUE KEY</code></article>
+        <article class="concept-card"><span class="concept-symbol">DF</span><h3>DEFAULT</h3><p>Define o valor usado quando a inserção não informa outro valor.</p><code>DEFAULT 1</code></article>
+      </div>
+      <div class="types-box">
+        <h3>Tipos de dados comuns</h3>
+        <div class="type-row"><code>INT / BIGINT</code><span>Números inteiros; BIGINT suporta uma faixa maior.</span></div>
+        <div class="type-row"><code>VARCHAR(n)</code><span>Texto variável com limite de caracteres.</span></div>
+        <div class="type-row"><code>CHAR(n)</code><span>Texto de tamanho fixo.</span></div>
+        <div class="type-row"><code>DATE</code><span>Data sem horário.</span></div>
+        <div class="type-row"><code>TIME</code><span>Horário.</span></div>
+        <div class="type-row"><code>DATETIME / TIMESTAMP</code><span>Data e horário, com regras de armazenamento distintas.</span></div>
+        <div class="type-row"><code>TEXT</code><span>Texto longo, adequado para mensagens e observações.</span></div>
+        <div class="type-row"><code>TINYINT(1)</code><span>Frequentemente usado para indicadores como ativo/inativo; o significado depende da aplicação.</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand"><span class="brand-mark">DB</span><strong>BD Protótipo</strong></div>
+    <p>Documentação educativa • Estrutura extraída de um arquivo SQL</p>
+    <p class="footer-note">Site estático: não armazena dados pessoais e não se conecta ao banco de dados.</p>
+  </footer>
+</body>
+</html>
